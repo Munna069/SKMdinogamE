@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dino Game by SKM IT</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #f4f4f4;
+      font-family: Arial;
+      overflow: hidden;
+      text-align: center;
+    }
+    #game {
+      width: 100%;
+      height: 300px;
+      background: linear-gradient(to top, #ccc, #eee);
+      position: relative;
+      border-bottom: 4px solid #444;
+    }
+    #dino {
+      width: 40px;
+      height: 40px;
+      background: green;
+      position: absolute;
+      bottom: 0;
+      left: 50px;
+      border-radius: 5px;
+    }
+    #cactus {
+      width: 25px;
+      height: 50px;
+      background: red;
+      position: absolute;
+      bottom: 0;
+      right: -50px;
+      animation: moveCactus 2s linear infinite;
+    }
+    @keyframes moveCactus {
+      0% { right: -50px; }
+      100% { right: 100%; }
+    }
+    .jump {
+      animation: jump 1s ease;
+    }
+    @keyframes jump {
+      0% { bottom: 0; }
+      50% { bottom: 100px; }
+      100% { bottom: 0; }
+    }
+    #score {
+      font-size: 18px;
+      margin-top: 10px;
+      color: #333;
+    }
+    #restartBtn {
+      display: none;
+      padding: 10px 20px;
+      margin-top: 10px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #333;
+    }
+    .social-icons img {
+      width: 30px;
+      margin: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Dino Jump Game</h2>
+  <div id="score">Score: 0</div>
+  <div id="game">
+    <div id="dino"></div>
+    <div id="cactus"></div>
+  </div>
+  <button id="restartBtn" onclick="restartGame()">Restart</button>
+
+  <div class="social-icons">
+    <a href="https://wa.me/+8801604677795"><img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png"/></a>
+    <a href="https://www.facebook.com/share/14GgTuUh7Hc/?mibextid=qi2Omg/"><img src="https://img.icons8.com/color/48/000000/facebook.png"/></a>
+    <a href="https://t.me/SkmMoneyBot"><img src="https://img.icons8.com/color/48/000000/telegram-app.png"/></a>
+    <a href="https://youtube.com/@sniper_king_munna100?si=PxEWTH6LGAnb2gsg"><img src="https://img.icons8.com/color/48/000000/youtube-play.png"/></a>
+    <a href="https://www.tiktok.com/@sniper_king_munna069?_t=ZS-8weCgfsUb2r&_r=1"><img src="https://img.icons8.com/color/48/000000/tiktok--v1.png"/></a>
+  </div>
+
+  <div class="footer">
+    Developer: SKM YT | SniperKingMunna
+  </div>
+
+  <script>
+    const dino = document.getElementById("dino");
+    const cactus = document.getElementById("cactus");
+    const scoreDisplay = document.getElementById("score");
+    const restartBtn = document.getElementById("restartBtn");
+    let score = 0;
+    let isAlive = true;
+
+    function jump() {
+      if (!dino.classList.contains("jump")) {
+        dino.classList.add("jump");
+        setTimeout(() => {
+          dino.classList.remove("jump");
+        }, 500);
+      }
+    }
+
+    document.addEventListener("keydown", e => {
+      if (e.code === "Space" || e.code === "ArrowUp") jump();
+    });
+
+    document.addEventListener("touchstart", () => jump());
+
+    let scoreInterval = setInterval(() => {
+      if (isAlive) {
+        score++;
+        scoreDisplay.textContent = "Score: " + score;
+      }
+    }, 200);
+
+    const checkAlive = setInterval(() => {
+      const dinoTop = parseInt(window.getComputedStyle(dino).getPropertyValue("bottom"));
+      const cactusLeft = parseInt(window.getComputedStyle(cactus).getPropertyValue("right"));
+
+      if (cactusLeft > (window.innerWidth - 100) && cactusLeft < (window.innerWidth - 50) && dinoTop <= 40) {
+        gameOver();
+      }
+    }, 10);
+
+    function gameOver() {
+      isAlive = false;
+      cactus.style.animation = "none";
+      restartBtn.style.display = "inline-block";
+      const goToAd = confirm("Game Over! Click OK to continue.");
+      if (goToAd) {
+        window.open("https://www.profitableratecpm.com/s11ntu3xrk?key=7c88d4fa5df833be366fe51a4d963d64", "_blank");
+      }
+    }
+
+    function restartGame() {
+      window.location.reload();
+    }
+  </script>
+
+</body>
+</html>
